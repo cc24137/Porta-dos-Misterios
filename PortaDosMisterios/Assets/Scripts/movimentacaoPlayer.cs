@@ -8,6 +8,12 @@ public class movimentacao : MonoBehaviour
     [Header("Referências")]
     public Animator animator;
 
+    [Header("Configurações de Interação")]
+    public float raioInteracao = 1.5f;
+    public LayerMask camadaInteragivel; // Use isso para o player não tentar interagir com o chão
+
+    private IInteragivel objetoDestaqueAtual;
+
     void Update()
     {
         // 1. Captura as entradas
@@ -21,6 +27,11 @@ public class movimentacao : MonoBehaviour
 
         // 3. Gerencia as animações
         AtualizarAnimacoes(direcao);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            VerificarInteracao();
+        }
     }
 
     void AtualizarAnimacoes(Vector2 dir)
@@ -43,5 +54,29 @@ public class movimentacao : MonoBehaviour
             // O player está parado
             animator.SetBool("Walking", false);
         }
+    }
+
+    void VerificarInteracao()
+    {
+        // Cria um círculo invisível ao redor do player para detectar colisores
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, raioInteracao, camadaInteragivel);
+
+        if (hit != null)
+        {
+            // Verifica se o objeto que atingimos tem o script que "assina" a interface
+            IInteragivel objeto = hit.GetComponent<IInteragivel>();
+
+            if (objeto != null)
+            {
+                objeto.Interagir();
+            }
+        }
+    }
+
+    // Desenha o círculo no editor para você ajustar o tamanho visualmente
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, raioInteracao);
     }
 }
