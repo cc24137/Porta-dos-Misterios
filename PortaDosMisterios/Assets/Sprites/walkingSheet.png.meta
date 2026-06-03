@@ -162,7 +162,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 12
-        y: 196
+        y: 195
         width: 38
         height: 48
       alignment: 0
@@ -186,7 +186,7 @@ TextureImporter:
         x: 76
         y: 194
         width: 38
-        height: 52
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,7 +206,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 140
-        y: 196
+        y: 195
         width: 38
         height: 48
       alignment: 0
@@ -230,7 +230,7 @@ TextureImporter:
         x: 204
         y: 194
         width: 38
-        height: 52
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,8 +249,8 @@ TextureImporter:
       name: walkingSheet_4
       rect:
         serializedVersion: 2
-        x: 12
-        y: 132
+        x: 13
+        y: 131
         width: 38
         height: 48
       alignment: 0
@@ -271,10 +271,10 @@ TextureImporter:
       name: walkingSheet_5
       rect:
         serializedVersion: 2
-        x: 78
-        y: 132
+        x: 81
+        y: 131
         width: 38
-        height: 50
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -293,8 +293,8 @@ TextureImporter:
       name: walkingSheet_6
       rect:
         serializedVersion: 2
-        x: 140
-        y: 132
+        x: 141
+        y: 131
         width: 38
         height: 48
       alignment: 0
@@ -315,10 +315,10 @@ TextureImporter:
       name: walkingSheet_7
       rect:
         serializedVersion: 2
-        x: 204
-        y: 132
+        x: 205
+        y: 131
         width: 38
-        height: 50
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -337,8 +337,8 @@ TextureImporter:
       name: walkingSheet_8
       rect:
         serializedVersion: 2
-        x: 14
-        y: 68
+        x: 13
+        y: 67
         width: 38
         height: 48
       alignment: 0
@@ -359,10 +359,10 @@ TextureImporter:
       name: walkingSheet_9
       rect:
         serializedVersion: 2
-        x: 76
-        y: 68
+        x: 73
+        y: 67
         width: 38
-        height: 50
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -381,8 +381,8 @@ TextureImporter:
       name: walkingSheet_10
       rect:
         serializedVersion: 2
-        x: 142
-        y: 68
+        x: 141
+        y: 67
         width: 38
         height: 48
       alignment: 0
@@ -403,10 +403,10 @@ TextureImporter:
       name: walkingSheet_11
       rect:
         serializedVersion: 2
-        x: 206
-        y: 69
+        x: 203
+        y: 67
         width: 38
-        height: 50
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,7 +426,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 12
-        y: 4
+        y: 3
         width: 38
         height: 48
       alignment: 0
@@ -447,10 +447,10 @@ TextureImporter:
       name: walkingSheet_13
       rect:
         serializedVersion: 2
-        x: 77
-        y: 1
-        width: 36
-        height: 54
+        x: 78
+        y: 2
+        width: 38
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -469,10 +469,10 @@ TextureImporter:
       name: walkingSheet_14
       rect:
         serializedVersion: 2
-        x: 139
+        x: 140
         y: 3
-        width: 40
-        height: 50
+        width: 38
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -491,10 +491,10 @@ TextureImporter:
       name: walkingSheet_15
       rect:
         serializedVersion: 2
-        x: 203
-        y: 1
-        width: 40
-        height: 54
+        x: 202
+        y: 2
+        width: 38
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
