@@ -16,6 +16,21 @@ public class movimentacao : MonoBehaviour
 
     void Update()
     {
+        // Se estiver lendo, não deixa o player se mover e checa se quer fechar
+        if (GerenciadorUI.Instancia.estaLendo)
+        {
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                GerenciadorUI.Instancia.FecharTexto();
+            }
+            return; // Sai do Update aqui, impedindo o movimento abaixo
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            VerificarInteracao();
+        }
+
         // 1. Captura as entradas
         float movimentoHorizontal = Input.GetAxisRaw("Horizontal");
         float movimentoVertical = Input.GetAxisRaw("Vertical");
@@ -27,11 +42,6 @@ public class movimentacao : MonoBehaviour
 
         // 3. Gerencia as animações
         AtualizarAnimacoes(direcao);
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            VerificarInteracao();
-        }
     }
 
     void AtualizarAnimacoes(Vector2 dir)
