@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Internal;
 using TreeEditor;
 using UnityEditor.EditorTools;
 using UnityEditor.PackageManager;
@@ -8,13 +10,14 @@ using UnityEngine.Rendering;
 
 public class patrol : MonoBehaviour
 {
-    private bool isSeeing = true;
     public float velocidade = 2f;
     public GameObject[] objetosDaRota;
     private List<Vector3> rota = new List<Vector3>();
     private int indRota = 0;
     private bool indo = true;
 
+    // Eventos
+    public static event Action<int, int> OnMudouDeDirecao;
 
     void Start()
     {
