@@ -15,7 +15,7 @@ public class VisionCone : MonoBehaviour
     [Header("Cone Visual")]
     public Color coneColor = new Color(1f, 1f, 0f, 0.25f);
     public Color coneEdgeColor = new Color(1f, 1f, 0f, 0.7f);
-    public Material coneMaterial; 
+    public Material coneMaterial;
 
     // -- Internal --
     private Mesh _coneMesh;
@@ -23,6 +23,9 @@ public class VisionCone : MonoBehaviour
     private MeshRenderer _meshRenderer;
     private bool _playerDetected;
     private bool isSeeing = true;
+
+    // olhar
+    private Vector2 _direcaoOlhar = Vector2.down;
 
     /*void Awake()
     {
@@ -48,7 +51,7 @@ public class VisionCone : MonoBehaviour
     //{
      //   _coneMesh = CreateVisionConeMesh();
       //  GameObject coneObject = new GameObject("VisionConeMesh");
-       // coneObject.transform.SetParent(transform, false); 
+       // coneObject.transform.SetParent(transform, false);
         //coneObject.AddComponent<MeshFilter>().mesh = _coneMesh;
         //coneObject.AddComponent<MeshRenderer>().material = coneMaterial;
    // }
@@ -62,45 +65,50 @@ public class VisionCone : MonoBehaviour
         //InvokeRepeating(nameof(CastVision), 1f, 0.5f);
     }
 
+    public void SetDirection(Vector2 novaDirecao)
+        {
+            if (novaDirecao != Vector2.zero)
+            {
+                _direcaoOlhar = novaDirecao.normalized;
+            }
+        }
+
     // ---------------------------------------------------------------
     // VISION RAYCASTING
     // ---------------------------------------------------------------
 
     void CastVision()
-    {
-        Vector2 origin = transform.position;
-        float startAngle = -viewAngle / 2f;
-        float angleStep = viewAngle / (rayCount - 1);
-
-        for (int i = 0; i < rayCount; i++)
         {
-            float angle = startAngle + angleStep * i;
-            Vector2 dir = Quaternion.Euler(0f, 0f, angle) * transform.up;
+            Vector2 origin = transform.position;
+            float startAngle = -viewAngle / 2f;
+            float angleStep = viewAngle / (rayCount - 1);
 
-            RaycastHit2D obstacleHit = Physics2D.Raycast(origin, dir, viewDistance, obstacleMask);
-            float rayLen = obstacleHit.collider != null ? obstacleHit.distance : viewDistance;
-            //float rayLen = viewDistance;
-
-            // Only check for player within the unobstructed ray length
-            RaycastHit2D playerHit = Physics2D.Raycast(origin, dir, rayLen, targetMask);
-            //Debug.Log(playerHit.collider == null);
-            if (playerHit.collider != null)
+            for (int i = 0; i < rayCount; i++)
             {
-                Debug.Log("Detectou algo");
-                if (playerHit.collider.CompareTag("Player"))
+                float angle = startAngle + angleStep * i;
+
+                Vector2 dir = Quaternion.Euler(0f, 0f, angle) * _direcaoOlhar;
+
+                RaycastHit2D obstacleHit = Physics2D.Raycast(origin, dir, viewDistance, obstacleMask);
+                float rayLen = obstacleHit.collider != null ? obstacleHit.distance : viewDistance;
+
+                RaycastHit2D playerHit = Physics2D.Raycast(origin, dir, rayLen, targetMask);
+
+                if (playerHit.collider != null)
                 {
-                    Debug.Log("Viu jogador");
-                    _playerDetected = true;
-                    Debug.DrawLine(origin, playerHit.point, Color.red);
-                    OnPlayerDetected();
+                    if (playerHit.collider.CompareTag("Player"))
+                    {
+                        _playerDetected = true;
+                        Debug.DrawLine(origin, playerHit.point, Color.red);
+                        OnPlayerDetected();
+                    }
+                }
+                else
+                {
+                    Debug.DrawLine(origin, origin + dir * rayLen, Color.green);
                 }
             }
-            else
-            {
-                Debug.DrawLine(origin, origin + dir * rayLen, Color.green);
-            }
         }
-    }
 
     void OnPlayerDetected()
     {
@@ -114,11 +122,10 @@ public class VisionCone : MonoBehaviour
 
     void DrawConeMesh()
     {
-        int vertexCount = rayCount + 2; // origin + one per ray + closing vertex
+        int vertexCount = rayCount + 2;
         Vector3[] vertices = new Vector3[vertexCount];
         int[] triangles = new int[(rayCount) * 3];
 
-        // Vertex 0 is the cone origin (local space = zero)
         vertices[0] = Vector3.zero;
 
         float startAngle = -viewAngle / 2f;
@@ -127,25 +134,17 @@ public class VisionCone : MonoBehaviour
         for (int i = 0; i < rayCount; i++)
         {
             float angle = startAngle + angleStep * i;
-            Vector2 dir = Quaternion.Euler(0f, 0f, angle) * transform.up;
 
-            RaycastHit2D hit = Physics2D.Raycast(
-                transform.position,
-                dir,
-                viewDistance,
-                obstacleMask
-            );
+            // MODIFICADO: Usando _direcaoOlhar no Mesh também
+            Vector2 dir = Quaternion.Euler(0f, 0f, angle) * _direcaoOlhar;
 
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewDistance, obstacleMask);
             float dist = hit.collider != null ? hit.distance : viewDistance;
 
-            // Convert world hit point to local space for the mesh
-            Vector3 localPoint = transform.InverseTransformPoint(
-                (Vector2)transform.position + dir * dist
-            );
+            Vector3 localPoint = transform.InverseTransformPoint((Vector2)transform.position + dir * dist);
             vertices[i + 1] = localPoint;
         }
 
-        // Build triangles: fan from vertex 0
         for (int i = 0; i < rayCount - 1; i++)
         {
             triangles[i * 3 + 0] = 0;
@@ -158,10 +157,7 @@ public class VisionCone : MonoBehaviour
         _coneMesh.triangles = triangles;
         _coneMesh.RecalculateNormals();
 
-        // Tint red when player is spotted
-        _meshRenderer.material.color = _playerDetected
-            ? new Color(1f, 0.1f, 0.1f, 0.35f)
-            : coneColor;
+        _meshRenderer.material.color = _playerDetected ? new Color(1f, 0.1f, 0.1f, 0.35f) : coneColor;
     }
 
     private Mesh CreateVisionConeMesh()
