@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class movimentacao : MonoBehaviour
@@ -14,7 +15,9 @@ public class movimentacao : MonoBehaviour
     public LayerMask camadaInteragivel;
 
     private IInteragivel objetoDestaqueAtual;
+    
     private Vector2 direcao;
+    public Vector2 lastDirection {get; set;}
 
     void Start()
     {
@@ -51,6 +54,11 @@ public class movimentacao : MonoBehaviour
 
         // Normaliza o vetor para o personagem não andar mais rápido na diagonal
         direcao = new Vector2(movimentoHorizontal, movimentoVertical).normalized;
+        
+        if (direcao != Vector2.zero)
+        {
+            lastDirection = direcao;
+        }
 
         // 2. Atualiza os parâmetros das animações
         AtualizarAnimacoes(direcao);

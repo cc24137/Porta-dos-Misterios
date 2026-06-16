@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class patrol : MonoBehaviour
@@ -19,8 +20,17 @@ public class patrol : MonoBehaviour
     private int indRota = 0;
     private bool indo = true;
 
-    private float cronometroEspera = 0f;
+    private float cronometro = 0f;
     private bool estaEsperando = false;
+
+    // estava pensando em fazer algo assim:
+    private enum estado
+    {
+        normal, // patrulha normal
+        buscando // depois de ouvir barulho, vai ate a fonte do barulho. Nao implementado ainda
+    }
+    private estado situacao = estado.normal; 
+    private bool wasBlind = false;
 
     // Eventos
     public static event Action<int, int> OnMudouDeDirecao;
@@ -46,9 +56,9 @@ public class patrol : MonoBehaviour
     {
         if (estaEsperando)
         {
-            cronometroEspera -= Time.deltaTime;
+            cronometro -= Time.deltaTime;
 
-            if (cronometroEspera <= 0f)
+            if (cronometro <= 0f)
             {
                 estaEsperando = false;
             }
@@ -59,10 +69,22 @@ public class patrol : MonoBehaviour
             }
         }
 
+        if (!coneDeVisao.isSeeing)
+        {
+            wasBlind = true;
+            return; // dont move while blind
+        }
+
+        if (wasBlind)
+        {
+            wasBlind = false;
+            EntraEmEstadoDeAlerta();
+        }
+
         if (Vector3.Distance(transform.position, rota[indRota]) < 0.1f)
         {
             estaEsperando = true;
-            cronometroEspera = tempoDeEspera;
+            cronometro = tempoDeEspera;
 
             if (indRota == rota.Count - 1)
             {
@@ -94,6 +116,13 @@ public class patrol : MonoBehaviour
         {
             coneDeVisao.SetDirection(direcaoMovimento);
         }
+    }
+
+    void EntraEmEstadoDeAlerta()
+    {
+        cronometro = 0f;
+        tempoDeEspera = tempoDeEspera / 2;
+        velocidade *= 2;
     }
 
     void AtualizarAnimacoes(Vector2 dir)

@@ -7,10 +7,12 @@ public class VisionCone : MonoBehaviour
     public float viewDistance = 8f;
     public float viewAngle = 90f;
     public int rayCount = 15;
+    public float blindTime = 3f;
 
     [Header("Layer Masks")]
     public LayerMask obstacleMask;
     public LayerMask targetMask;
+    public LayerMask blindingMask;
 
     [Header("Cone Visual")]
     public Color coneColor = new Color(1f, 1f, 0f, 0.25f);
@@ -22,7 +24,8 @@ public class VisionCone : MonoBehaviour
     private MeshFilter _meshFilter;
     private MeshRenderer _meshRenderer;
     private bool _playerDetected;
-    private bool isSeeing = true;
+    public bool isSeeing {get; set;}
+    private float timeBlinded = 0f;
 
     // olhar
     private Vector2 _direcaoOlhar = Vector2.down;
@@ -47,19 +50,32 @@ public class VisionCone : MonoBehaviour
         }
     }*/
 
-    //void Start()
-    //{
-     //   _coneMesh = CreateVisionConeMesh();
-      //  GameObject coneObject = new GameObject("VisionConeMesh");
-       // coneObject.transform.SetParent(transform, false);
-        //coneObject.AddComponent<MeshFilter>().mesh = _coneMesh;
-        //coneObject.AddComponent<MeshRenderer>().material = coneMaterial;
-   // }
+    void Start()
+    {
+    //    _coneMesh = CreateVisionConeMesh();
+    //    GameObject coneObject = new GameObject("VisionConeMesh");
+    //    coneObject.transform.SetParent(transform, false);
+    //    coneObject.AddComponent<MeshFilter>().mesh = _coneMesh;
+    //    coneObject.AddComponent<MeshRenderer>().material = coneMaterial;
+        isSeeing = true;
+    }
 
     void Update()
     {
         _playerDetected = false;
-        CastVision();
+        if (isSeeing)
+        {
+            CastVision();
+        }
+        else
+        {
+            timeBlinded += Time.deltaTime;
+            if (timeBlinded >= blindTime)
+            {
+                timeBlinded = 0f;
+                isSeeing = true;
+            }
+        }
         //CastVision();
         //DrawConeMesh();
         //InvokeRepeating(nameof(CastVision), 1f, 0.5f);
@@ -93,6 +109,17 @@ public class VisionCone : MonoBehaviour
                 float rayLen = obstacleHit.collider != null ? obstacleHit.distance : viewDistance;
 
                 RaycastHit2D playerHit = Physics2D.Raycast(origin, dir, rayLen, targetMask);
+
+                RaycastHit2D flashHit = Physics2D.Raycast(origin, dir, rayLen, blindingMask);
+
+                if (flashHit.collider != null)
+                {
+                    //if (flashHit.collider.CompareTag("FlashObject"))
+                    //{
+                      //  Debug.Log("Viu flash");
+                        isSeeing = false;
+                    //}
+                }
 
                 if (playerHit.collider != null)
                 {

@@ -24,7 +24,7 @@ public class Recursos : MonoBehaviour
         if (energiaEspiritualAtual < energiaEspiritualMaxima)
         {
             energiaEspiritualAtual += regeneracaoPorSegundo * Time.deltaTime;
-            Debug.Log("Regenerando energia espiritual: " + energiaEspiritualAtual);
+            //Debug.Log("Regenerando energia espiritual: " + energiaEspiritualAtual);
 
             if (energiaEspiritualAtual > energiaEspiritualMaxima)
             {
