@@ -7,6 +7,7 @@ public class patrol : MonoBehaviour
     [Header("Configurações de Movimento")]
     public float velocidade = 2f;
     public GameObject[] objetosDaRota;
+    public float tempoDeEspera = 1f;
 
     [Header("Referências")]
     public Animator animator;
@@ -17,6 +18,9 @@ public class patrol : MonoBehaviour
     private List<Vector3> rota = new List<Vector3>();
     private int indRota = 0;
     private bool indo = true;
+
+    private float cronometroEspera = 0f;
+    private bool estaEsperando = false;
 
     // Eventos
     public static event Action<int, int> OnMudouDeDirecao;
@@ -40,8 +44,26 @@ public class patrol : MonoBehaviour
 
     void Update()
     {
+        if (estaEsperando)
+        {
+            cronometroEspera -= Time.deltaTime;
+
+            if (cronometroEspera <= 0f)
+            {
+                estaEsperando = false;
+            }
+            else
+            {
+                AtualizarAnimacoes(Vector2.zero);
+                return;
+            }
+        }
+
         if (Vector3.Distance(transform.position, rota[indRota]) < 0.1f)
         {
+            estaEsperando = true;
+            cronometroEspera = tempoDeEspera;
+
             if (indRota == rota.Count - 1)
             {
                 indo = false;
@@ -57,6 +79,9 @@ public class patrol : MonoBehaviour
                 if (indo) indRota++;
                 else indRota--;
             }
+
+            AtualizarAnimacoes(Vector2.zero);
+            return;
         }
 
         Vector3 direcaoMovimento = (rota[indRota] - transform.position).normalized;
@@ -65,7 +90,6 @@ public class patrol : MonoBehaviour
 
         AtualizarAnimacoes(direcaoMovimento);
 
-        // passa a direção de movimento para o cone de visão
         if (coneDeVisao != null && direcaoMovimento != Vector3.zero)
         {
             coneDeVisao.SetDirection(direcaoMovimento);
