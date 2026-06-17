@@ -16,38 +16,15 @@ public class Inventario : MonoBehaviour
         OnSlotSelecionado?.Invoke(slotSelecionado);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) AlternarSelecao(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) AlternarSelecao(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) AlternarSelecao(2);
-
-        if (Input.GetKeyDown(KeyCode.E)) // USO DE ITEM
-        {
-            if (slotSelecionado != -1)
-            {
-                UsarSlot(slotSelecionado);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            if (slotSelecionado != -1)
-            {
-                JogarItemFora(slotSelecionado);
-            }
-        }
-    }
-
-    private void AlternarSelecao(int index)
+    public void AlternarSelecao(int index)
     {
         if (slotSelecionado == index)
         {
-            slotSelecionado = -1; // Desseleciona (mãos vazias)
+            slotSelecionado = -1;
         }
         else
         {
-            slotSelecionado = index; // Seleciona o novo slot
+            slotSelecionado = index;
         }
 
         OnSlotSelecionado?.Invoke(slotSelecionado);
@@ -68,19 +45,19 @@ public class Inventario : MonoBehaviour
         return false;
     }
 
-    private void UsarSlot(int index)
+    public void UsarItemEquipado()
     {
-        if (slots[index] != null)
+        if (slotSelecionado != -1 && slots[slotSelecionado] != null)
         {
-            slots[index].Usar(gameObject);
+            slots[slotSelecionado].Usar(gameObject);
         }
         else
         {
-            Debug.Log($"Você tentou usar o slot {index + 1}, mas ele está vazio.");
+            Debug.Log("Nenhum item equipado ou slot vazio.");
         }
     }
 
-    private void JogarItemFora(int index)
+    public void JogarItemFora(int index)
     {
         if (slots[index] == null) return;
 

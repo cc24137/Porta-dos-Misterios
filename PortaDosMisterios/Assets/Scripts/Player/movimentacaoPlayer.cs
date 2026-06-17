@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class movimentacao : MonoBehaviour
@@ -14,45 +13,27 @@ public class movimentacao : MonoBehaviour
     public float raioInteracao = 1.5f;
     public LayerMask camadaInteragivel;
 
-    private IInteragivel objetoDestaqueAtual;
-
     private Vector2 direcao;
-    public Vector2 lastDirection {get; set;}
-
-    private Inventario inventario;
+    public Vector2 lastDirection { get; set; }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        inventario = GetComponent<Inventario>();
     }
 
     void Update()
     {
-        if (GerenciadorUI.Instancia.estaLendo)
+        if (GerenciadorUI.Instancia != null && GerenciadorUI.Instancia.estaLendo)
         {
             direcao = Vector2.zero;
             rb.linearVelocity = Vector2.zero;
-
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
-            {
-                GerenciadorUI.Instancia.FecharTexto();
-            }
-
             AtualizarAnimacoes(direcao);
             return;
-        }
-
-        // nao equipou nenhum item, pode interagir normalmente
-        if (inventario.slotSelecionado == -1 && Input.GetKeyDown(KeyCode.E))
-        {
-            VerificarInteracao();
         }
 
         float movimentoHorizontal = Input.GetAxisRaw("Horizontal");
         float movimentoVertical = Input.GetAxisRaw("Vertical");
 
-        // Normaliza o vetor para o personagem não andar mais rápido na diagonal
         direcao = new Vector2(movimentoHorizontal, movimentoVertical).normalized;
 
         if (direcao != Vector2.zero)
@@ -70,34 +51,26 @@ public class movimentacao : MonoBehaviour
 
     void AtualizarAnimacoes(Vector2 dir)
     {
-        // Se a direção for diferente de zero, o player está se movendo
         if (dir != Vector2.zero)
         {
             animator.SetBool("Walking", true);
-
-            // Atualiza os eixos para a Blend Tree de caminhada
             animator.SetFloat("Horizontal", dir.x);
             animator.SetFloat("Vertical", dir.y);
-
-            // Guarda a direção do último movimento para a Blend Tree de Idle (parado)
             animator.SetFloat("LastHorizontal", dir.x);
             animator.SetFloat("LastVertical", dir.y);
         }
         else
         {
-            // O player está parado
             animator.SetBool("Walking", false);
         }
     }
 
-    void VerificarInteracao()
+    public void VerificarInteracao()
     {
-        // Cria uma área circular ao redor do player para detectar interagíveis
         Collider2D hit = Physics2D.OverlapCircle(transform.position, raioInteracao, camadaInteragivel);
 
         if (hit != null)
         {
-            // Verifica se o objeto atingido possui a interface de interação
             IInteragivel objeto = hit.GetComponent<IInteragivel>();
 
             if (objeto != null)
