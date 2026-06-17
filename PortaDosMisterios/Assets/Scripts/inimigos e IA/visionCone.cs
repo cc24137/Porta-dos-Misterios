@@ -30,6 +30,8 @@ public class VisionCone : MonoBehaviour
     // olhar
     private Vector2 _direcaoOlhar = Vector2.down;
 
+    private patrol meuPatrulha;
+
     /*void Awake()
     {
         _meshFilter = GetComponent<MeshFilter>();
@@ -58,6 +60,7 @@ public class VisionCone : MonoBehaviour
     //    coneObject.AddComponent<MeshFilter>().mesh = _coneMesh;
     //    coneObject.AddComponent<MeshRenderer>().material = coneMaterial;
         isSeeing = true;
+        meuPatrulha = GetComponent<patrol>();
     }
 
     void Update()
@@ -75,6 +78,11 @@ public class VisionCone : MonoBehaviour
                 timeBlinded = 0f;
                 isSeeing = true;
             }
+        }
+
+        if (meuPatrulha != null)
+        {
+            meuPatrulha.detectouPlayer = _playerDetected;
         }
         //CastVision();
         //DrawConeMesh();
