@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5402e07e41a603742bb995e649edae25, type: 3}
+  m_Name: DiarioRasgado
+  m_EditorClassIdentifier: Assembly-CSharp::NotaData
+  nomeItem: "DI\xE1rio Rasgado"
+  icone: {fileID: 21300000, guid: 43b1ecd54176145a2b4f00ca71bac298, type: 3}
+  descricao: "Um di\xE1rio com apenas algumas p\xE1ginas, aparentemente rasgado."
+  prefabNoChao: {fileID: 5660429781868002973, guid: a677c91428c7330418e528d2fdb0ee50, type: 3}
+  conteudoDaNota: "voc\xEA morreu eu acho kk"

@@ -15,25 +15,26 @@ public class movimentacao : MonoBehaviour
     public LayerMask camadaInteragivel;
 
     private IInteragivel objetoDestaqueAtual;
-    
+
     private Vector2 direcao;
     public Vector2 lastDirection {get; set;}
 
+    private Inventario inventario;
+
     void Start()
     {
-        // Pega o componente Rigidbody2D anexado ao personagem automaticamente
         rb = GetComponent<Rigidbody2D>();
+        inventario = GetComponent<Inventario>();
     }
 
     void Update()
     {
-        // Se estiver lendo, impede a movimentação e verifica se quer fechar a UI
         if (GerenciadorUI.Instancia.estaLendo)
         {
             direcao = Vector2.zero;
-            rb.linearVelocity = Vector2.zero; // Garante parada imediata na física
+            rb.linearVelocity = Vector2.zero;
 
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
             {
                 GerenciadorUI.Instancia.FecharTexto();
             }
@@ -42,32 +43,28 @@ public class movimentacao : MonoBehaviour
             return;
         }
 
-        // Verifica a intenção de interação
-        if (Input.GetKeyDown(KeyCode.E))
+        // nao equipou nenhum item, pode interagir normalmente
+        if (inventario.slotSelecionado == -1 && Input.GetKeyDown(KeyCode.E))
         {
             VerificarInteracao();
         }
 
-        // 1. Captura as entradas de movimento
         float movimentoHorizontal = Input.GetAxisRaw("Horizontal");
         float movimentoVertical = Input.GetAxisRaw("Vertical");
 
         // Normaliza o vetor para o personagem não andar mais rápido na diagonal
         direcao = new Vector2(movimentoHorizontal, movimentoVertical).normalized;
-        
+
         if (direcao != Vector2.zero)
         {
             lastDirection = direcao;
         }
 
-        // 2. Atualiza os parâmetros das animações
         AtualizarAnimacoes(direcao);
     }
 
     void FixedUpdate()
     {
-        // 3. Move o personagem aplicando velocidade física (Padrão Unity 6)
-        // Isso resolve o problema de atravessar paredes
         rb.linearVelocity = direcao * velocidade;
     }
 
@@ -110,7 +107,6 @@ public class movimentacao : MonoBehaviour
         }
     }
 
-    // Desenha o círculo de interação amarelo no editor do Unity para ajuste visual
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
