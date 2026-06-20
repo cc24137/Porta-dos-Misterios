@@ -17,9 +17,13 @@ public class InputManager : MonoBehaviour
     {
         if (GerenciadorUI.Instancia != null && GerenciadorUI.Instancia.estaLendo)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 GerenciadorUI.Instancia.FecharTexto();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
+            {
+                GerenciadorUI.Instancia.AvancarTexto();
             }
             return;
         }

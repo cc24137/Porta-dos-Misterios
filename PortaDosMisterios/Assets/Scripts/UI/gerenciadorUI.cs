@@ -3,27 +3,60 @@ using TMPro;
 
 public class GerenciadorUI : MonoBehaviour
 {
-    public static GerenciadorUI Instancia;
+    public static GerenciadorUI Instancia { get; private set; }
 
-    public GameObject painelLeitura;
-    public TextMeshProUGUI textoLeitura;
     public bool estaLendo = false;
+
+    [Header("Configurações de Texto")]
+    public GameObject painelTexto;
+    public TextMeshProUGUI componenteTexto;
+
+    private string[] paginasAtuais;
+    private int indexPagina;
 
     void Awake()
     {
-        Instancia = this;
+        if (Instancia == null) Instancia = this;
+        else Destroy(gameObject);
     }
 
-    public void MostrarTexto(string conteudo)
+    public void AbrirTexto(string[] novasPaginas)
     {
-        textoLeitura.text = conteudo;
-        painelLeitura.SetActive(true);
+        if (novasPaginas == null || novasPaginas.Length == 0) return;
+
+        paginasAtuais = novasPaginas;
+        indexPagina = 0; // Começa sempre na primeira página
         estaLendo = true;
+
+        painelTexto.SetActive(true);
+        MostrarPaginaAtual();
+    }
+
+    public void AvancarTexto()
+    {
+        indexPagina++; // Vai para a próxima página
+
+        // Verifica se ainda tem páginas para mostrar
+        if (indexPagina < paginasAtuais.Length)
+        {
+            MostrarPaginaAtual();
+        }
+        else
+        {
+            // Se as páginas acabaram, fecha o livro
+            FecharTexto();
+        }
+    }
+
+    private void MostrarPaginaAtual()
+    {
+        // Atualiza o texto na tela com base no índice atual
+        componenteTexto.text = paginasAtuais[indexPagina];
     }
 
     public void FecharTexto()
     {
-        painelLeitura.SetActive(false);
         estaLendo = false;
+        painelTexto.SetActive(false);
     }
 }

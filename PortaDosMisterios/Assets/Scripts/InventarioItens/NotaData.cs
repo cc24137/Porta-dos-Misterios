@@ -4,14 +4,15 @@ using UnityEngine;
 public class NotaData : ItemData
 {
     [Header("Conteúdo da Nota")]
-    [TextArea(5, 15)]
-    public string conteudoDaNota;
+    [TextArea(5, 15)] 
+    public string[] paginasDaNota;
 
     public override void Usar(GameObject player)
     {
         if (GerenciadorUI.Instancia != null)
         {
-            GerenciadorUI.Instancia.MostrarTexto(conteudoDaNota);
+            // Chama a nova função do GerenciadorUI passando o Array de páginas
+            GerenciadorUI.Instancia.AbrirTexto(paginasDaNota);
         }
         else
         {
