@@ -10,10 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5402e07e41a603742bb995e649edae25, type: 3}
-  m_Name: DiarioRasgado
+  m_Name: DiarioRasgado01
   m_EditorClassIdentifier: Assembly-CSharp::NotaData
   nomeItem: "DI\xE1rio Rasgado"
   icone: {fileID: 21300000, guid: 43b1ecd54176145a2b4f00ca71bac298, type: 3}
   descricao: "Um di\xE1rio com apenas algumas p\xE1ginas, aparentemente rasgado."
   prefabNoChao: {fileID: 5660429781868002973, guid: a677c91428c7330418e528d2fdb0ee50, type: 3}
-  conteudoDaNota: betinha moggado
+  paginasDaNota:
+  - '"05/10/1452
+
+    Depois de algumas semanas praticando a Abertura de Porta sinto
+    que estou pegando o jeito."'
+  - "\"Com ela, consigo criar uma porta ilus\xF3ria para atravessar paredes! Mas
+    tamb\xE9m preciso descansar para recuperar minha Energia Espiritual.\""
+  - "\"Com o Sr. Gray me guiando, fica bem mais f\xE1cil, sinto tamb\xE9m que minha
+    aptid\xE3o com a po\xE7\xE3o est\xE1 progredindo bem.\""
+  - "(Abertura de Porta? Parece ser alguma forma de habilidade m\xE1gica! Talvez
+    eu deva tentar us\xE1-la para descobrir o que \xE9 exatamente.)"
