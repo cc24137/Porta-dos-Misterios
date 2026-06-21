@@ -2196,7 +2196,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 288
+  orthographic size: 283
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4306,9 +4306,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1393618078}
     m_Modifications:
+    - target: {fileID: 1151581312101692425, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f315739a352740d8a5be9b2d44725a8, type: 2}
+    - target: {fileID: 2591859101661659876, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: _meshFilter
+      value: 
+      objectReference: {fileID: 1170274610}
+    - target: {fileID: 2591859101661659876, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: coneColor.a
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591859101661659876, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: coneColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591859101661659876, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: coneMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f7a67bdb0740bc4c9800466b9243f1a, type: 2}
     - target: {fileID: 3034584605799022584, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
       propertyPath: objetosDaRota.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695535402603488577, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695535402603488577, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4922242604528019080, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
       propertyPath: m_Enabled
@@ -5050,6 +5078,11 @@ RectTransform:
   m_AnchoredPosition: {x: 207.64703, y: -54.117645}
   m_SizeDelta: {x: 380, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!33 &1170274610 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 8173516104214694317, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+  m_PrefabInstance: {fileID: 1051761904}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1234167626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 693815357636476407, guid: 54b324796275b73428518b037501049d, type: 3}
@@ -6798,6 +6831,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1433312601290883737, guid: a69184fb7af981d488a13e47f2c83255, type: 3}
   m_PrefabInstance: {fileID: 5180637892700136783}
   m_PrefabAsset: {fileID: 0}
+--- !u!33 &1818510246 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 8173516104214694317, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+  m_PrefabInstance: {fileID: 4997911474751854055}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1837605174
 GameObject:
   m_ObjectHideFlags: 0
@@ -7967,9 +8005,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1393618078}
     m_Modifications:
+    - target: {fileID: 1151581312101692425, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6a88255f34d065f4a8f318680c1cb356, type: 2}
+    - target: {fileID: 2591859101661659876, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: _meshFilter
+      value: 
+      objectReference: {fileID: 1818510246}
+    - target: {fileID: 2591859101661659876, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: coneMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f7a67bdb0740bc4c9800466b9243f1a, type: 2}
     - target: {fileID: 3034584605799022584, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
       propertyPath: objetosDaRota.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695535402603488577, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695535402603488577, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4922242604528019080, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
       propertyPath: m_Enabled
@@ -7978,6 +8036,10 @@ PrefabInstance:
     - target: {fileID: 4954605994877565784, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
       propertyPath: m_Name
       value: Guarda
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976817414751268499, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8285184745463796212, guid: e877bf99f95237847b908b09cf7f5092, type: 3}
       propertyPath: m_LocalPosition.x

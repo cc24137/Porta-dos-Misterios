@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 //[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -21,7 +22,7 @@ public class VisionCone : MonoBehaviour
 
     // -- Internal --
     private Mesh _coneMesh;
-    private MeshFilter _meshFilter;
+    [SerializeField] private MeshFilter _meshFilter;
     private MeshRenderer _meshRenderer;
     private bool _playerDetected;
     public bool isSeeing {get; set;}
@@ -32,10 +33,15 @@ public class VisionCone : MonoBehaviour
 
     private patrol meuPatrulha;
 
-    /*void Awake()
-    {
-        _meshFilter = GetComponent<MeshFilter>();
-        _meshRenderer = GetComponent<MeshRenderer>();
+
+    void Start()
+    {  
+        if (_meshFilter == null)
+        {
+            _meshFilter = GetComponentInChildren<MeshFilter>();
+        }   
+
+        _meshRenderer = GetComponentInChildren<MeshRenderer>();
 
         _coneMesh = new Mesh { name = "VisionConeMesh" };
         _meshFilter.mesh = _coneMesh;
@@ -50,15 +56,11 @@ public class VisionCone : MonoBehaviour
             mat.color = coneColor;
             _meshRenderer.material = mat;
         }
-    }*/
 
-    void Start()
-    {
-    //    _coneMesh = CreateVisionConeMesh();
-    //    GameObject coneObject = new GameObject("VisionConeMesh");
-    //    coneObject.transform.SetParent(transform, false);
-    //    coneObject.AddComponent<MeshFilter>().mesh = _coneMesh;
-    //    coneObject.AddComponent<MeshRenderer>().material = coneMaterial;
+        _meshRenderer.sortingLayerName = "Player"; 
+        
+        _meshRenderer.sortingOrder = 5;
+
         isSeeing = true;
         meuPatrulha = GetComponent<patrol>();
     }
@@ -69,6 +71,7 @@ public class VisionCone : MonoBehaviour
         if (isSeeing)
         {
             CastVision();
+            DrawConeMesh();
         }
         else
         {
@@ -84,9 +87,6 @@ public class VisionCone : MonoBehaviour
         {
             meuPatrulha.detectouPlayer = _playerDetected;
         }
-        //CastVision();
-        //DrawConeMesh();
-        //InvokeRepeating(nameof(CastVision), 1f, 0.5f);
     }
 
     public void SetDirection(Vector2 novaDirecao)
@@ -157,11 +157,12 @@ public class VisionCone : MonoBehaviour
 
     void DrawConeMesh()
     {
-        int vertexCount = rayCount + 2;
+        int vertexCount = rayCount + 1;
         Vector3[] vertices = new Vector3[vertexCount];
-        int[] triangles = new int[(rayCount) * 3];
+        int[] triangles = new int[(rayCount-1) * 3];
 
-        vertices[0] = Vector3.zero;
+        // vertices[0] = new Vector3(0, 0, -0.1f);
+        vertices[0] = new Vector3(0, 0, 0);
 
         float startAngle = -viewAngle / 2f;
         float angleStep = viewAngle / (rayCount - 1);
@@ -177,6 +178,7 @@ public class VisionCone : MonoBehaviour
             float dist = hit.collider != null ? hit.distance : viewDistance;
 
             Vector3 localPoint = transform.InverseTransformPoint((Vector2)transform.position + dir * dist);
+            //localPoint.z = -0.1f;
             vertices[i + 1] = localPoint;
         }
 
@@ -187,42 +189,28 @@ public class VisionCone : MonoBehaviour
             triangles[i * 3 + 2] = i + 2;
         }
 
+        if (_coneMesh == null) 
+        {
+            _coneMesh = new Mesh();
+        }
+
         _coneMesh.Clear();
         _coneMesh.vertices = vertices;
         _coneMesh.triangles = triangles;
         _coneMesh.RecalculateNormals();
 
-        _meshRenderer.material.color = _playerDetected ? new Color(1f, 0.1f, 0.1f, 0.35f) : coneColor;
+        _meshFilter.mesh = _coneMesh;
+
+        Color corFinal = _playerDetected ? new Color(1f, 0.1f, 0.1f, 0.35f) : coneColor;
+        
+        if (_meshRenderer.material.HasProperty("_BaseColor"))
+        {
+            _meshRenderer.material.SetColor("_BaseColor", corFinal); // Se for URP
+        }
+        else
+        {
+            _meshRenderer.material.color = corFinal; // Se for Unity Padrão
+        }
     }
 
-    private Mesh CreateVisionConeMesh()
-    {
-        Mesh mesh = new Mesh();
-
-        Vector3[] vertices = new Vector3[rayCount + 2];
-        int[] triangles = new int[rayCount * 3];
-
-        vertices[0] = Vector3.zero; // Origin point
-
-        float angleIncrement = viewAngle / rayCount;
-        for (int i = 0; i <= rayCount; i++)
-        {
-            float angle = -viewAngle / 2 + angleIncrement * i;
-            Vector3 vertex = Quaternion.Euler(0, angle, 0) * Vector3.forward * viewDistance;
-            vertices[i + 1] = vertex;
-        }
-
-        for (int i = 0; i < rayCount; i++)
-        {
-            triangles[i * 3] = 0;
-            triangles[i * 3 + 1] = i + 1;
-            triangles[i * 3 + 2] = i + 2;
-        }
-
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
-
-        return mesh;
-    }
 }
