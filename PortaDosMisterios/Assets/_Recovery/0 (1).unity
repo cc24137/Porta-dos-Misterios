@@ -5596,9 +5596,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteragivelDialogo
   paginas:
-  - (Essa porta parece estar trancada)
-  - "(Talvez eu possa tentar usar a Abertura de Porta nessa parede como eu li no
-    di\xE1rio...)"
+  - (Essa porta parece trancada
+  - 
 --- !u!1 &1658678669
 GameObject:
   m_ObjectHideFlags: 0
@@ -6025,10 +6024,6 @@ PrefabInstance:
     - target: {fileID: 8732646684112772108, guid: 7da620b3d031d9d4880605cec01dd537, type: 3}
       propertyPath: m_Name
       value: PortaFake02
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732646684112772108, guid: 7da620b3d031d9d4880605cec01dd537, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6653,17 +6648,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 7291434468137351442, guid: 7da620b3d031d9d4880605cec01dd537, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8732646684112772108, guid: 7da620b3d031d9d4880605cec01dd537, type: 3}
       propertyPath: m_Name
       value: PortaFake01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732646684112772108, guid: 7da620b3d031d9d4880605cec01dd537, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
