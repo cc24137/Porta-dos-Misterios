@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3400135359600546233}
   - component: {fileID: 1827803263320738152}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_bottomLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}

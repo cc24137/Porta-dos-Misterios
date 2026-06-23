@@ -67,5 +67,13 @@ public class InputManager : MonoBehaviour
                 habilidades.TentarUsarLoudSound();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (habilidades != null)
+            {
+                habilidades.TentarUsarPortaIlusoria();
+            }
+        }
     }
 }

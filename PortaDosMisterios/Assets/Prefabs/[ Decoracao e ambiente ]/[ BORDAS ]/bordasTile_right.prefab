@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3935262809080275133}
   - component: {fileID: 8897910069657453760}
   - component: {fileID: 7053789278365081520}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}

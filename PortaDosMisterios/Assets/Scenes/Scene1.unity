@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 20454520}
   - component: {fileID: 20454521}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_bottomRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 30437102}
   - component: {fileID: 30437103}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_bottomLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 89403606}
   - component: {fileID: 89403605}
   - component: {fileID: 89403607}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: brickWallSprite_0 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1981,7 +1981,7 @@ GameObject:
   - component: {fileID: 575048243}
   - component: {fileID: 575048244}
   - component: {fileID: 575048245}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2787,7 +2787,7 @@ GameObject:
   - component: {fileID: 926080778}
   - component: {fileID: 926080777}
   - component: {fileID: 926080779}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: brickWallSprite_0 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3620,7 +3620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1038598129}
   - component: {fileID: 1038598130}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_left (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4080,8 +4080,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Recursos
   energiaEspiritualMaxima: 100
-  energiaEspiritualAtual: 20
-  regeneracaoPorSegundo: 2
+  energiaEspiritualAtual: 100
+  regeneracaoPorSegundo: 5
 --- !u!114 &1081769627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4101,6 +4101,13 @@ MonoBehaviour:
   flashLiberada: 1
   loudSoundLiberado: 1
   distanciaDeSpawn: 100
+  prefabPortaIlusoria: {fileID: 1928325529760585796, guid: 6e989e7764d110f4c9d0ecc7cddee55b, type: 3}
+  custoPorta: 40
+  mascaraParedes:
+    serializedVersion: 2
+    m_Bits: 1024
+  distanciaMaxBuscaParede: 10000
+  espessuraMaxParede: 10000
 --- !u!114 &1081769628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4667,7 +4674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1345069319}
   - component: {fileID: 1345069318}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_topLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5114,7 +5121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1469202639}
   - component: {fileID: 1469202638}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5386,7 +5393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1544864670}
   - component: {fileID: 1544864671}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_topLeft (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6030,7 +6037,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 597185922333939026, guid: 7da620b3d031d9d4880605cec01dd537, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -6207,7 +6215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1837605175}
   - component: {fileID: 1837605176}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_bottomRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6480,7 +6488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2034834667}
   - component: {fileID: 2034834668}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_top (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6665,7 +6673,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 597185922333939026, guid: 7da620b3d031d9d4880605cec01dd537, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -6683,7 +6692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2045687709}
   - component: {fileID: 2045687708}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_topRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6775,7 +6784,7 @@ GameObject:
   - component: {fileID: 2049051954}
   - component: {fileID: 2049051953}
   - component: {fileID: 2049051955}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6996,7 +7005,7 @@ GameObject:
   - component: {fileID: 2143963774}
   - component: {fileID: 2143963773}
   - component: {fileID: 2143963775}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bordasTile_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
