@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3b6a139bc2391dd449660fe9dc9bcb78
+guid: ad6b87cb56918f04a979bbe4d00c723b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1495962204126754551
-    second: doorPathwayIcon_0
+      213: -4935411075885036503
+    second: portaIlusoriaSprite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: doorPathwayIcon_0
+      name: portaIlusoriaSprite_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 4
-        width: 628
-        height: 630
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 10
+        y: 0
+        width: 44
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7f6b26ed2b9b2c410800000000000000
-      internalID: 1495962204126754551
+      spriteID: 92c085186c5e18bb0800000000000000
+      internalID: -4935411075885036503
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5a301b5311504e7499808f8c321fbadd
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      doorPathwayIcon_0: 1495962204126754551
+      portaIlusoriaSprite_0: -4935411075885036503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -4106,8 +4106,8 @@ MonoBehaviour:
   mascaraParedes:
     serializedVersion: 2
     m_Bits: 1024
-  distanciaMaxBuscaParede: 10000
-  espessuraMaxParede: 10000
+  distanciaMaxBuscaParede: 30
+  espessuraMaxParede: 500
 --- !u!114 &1081769628
 MonoBehaviour:
   m_ObjectHideFlags: 0

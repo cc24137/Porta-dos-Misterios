@@ -101,11 +101,9 @@ public class Abilities : MonoBehaviour
     {
         if (!recursos.ConsumirEnergia(custoPorta))
         {
-            Debug.Log("Sem energia suficiente para a porta.");
             return;
         }
 
-        Debug.Log("Lançando Porta Ilusória!");
         MakePorta();
     }
 
@@ -121,13 +119,13 @@ public class Abilities : MonoBehaviour
         {
             Vector2 pontoEntrada = hitEntrada.point;
             Vector2 pontoAtual = pontoEntrada + (dir * 0.2f); // Dá o primeiro passo para dentro da parede
-            
+
             bool achouSaida = false;
             int passos = 0;
-            
-            int maxPassos = Mathf.CeilToInt(espessuraMaxParede / 0.2f); 
 
-            int estadoTravessia = 0; 
+            int maxPassos = Mathf.CeilToInt(espessuraMaxParede / 0.2f);
+
+            int estadoTravessia = 0;
             // 0 = Atravessando a borda da Sala 1
             // 1 = Passando pelo Vazio entre as salas
             // 2 = Atravessando a borda da Sala 2
@@ -137,26 +135,26 @@ public class Abilities : MonoBehaviour
             while (passos < maxPassos)
             {
                 Collider2D col = Physics2D.OverlapPoint(pontoAtual, mascaraParedes);
-                
+
                 if (estadoTravessia == 0)
                 {
-                    if (col == null) 
+                    if (col == null)
                     {
                         // Saiu da Parede 1 e não bateu em nada -> vazio entre salas
-                        estadoTravessia = 1; 
+                        estadoTravessia = 1;
                     }
                     else if (col.gameObject != primeiraParede)
                     {
                         // duas bordas grudadas uma na outra
-                        estadoTravessia = 2; 
+                        estadoTravessia = 2;
                     }
                 }
                 else if (estadoTravessia == 1)
                 {
-                    if (col != null) 
+                    if (col != null)
                     {
                         // encontrou a parede 2
-                        estadoTravessia = 2; 
+                        estadoTravessia = 2;
                     }
                 }
                 else if (estadoTravessia == 2)
@@ -164,7 +162,7 @@ public class Abilities : MonoBehaviour
                     if (col == null)
                     {
                         // chegou na sala 2
-                        achouSaida = true; 
+                        achouSaida = true;
                         break;
                     }
                 }
@@ -175,18 +173,26 @@ public class Abilities : MonoBehaviour
 
             if (achouSaida)
             {
-                // Cria a Porta 1 na entrada
-                GameObject portaEntrada = Instantiate(prefabPortaIlusoria, pontoEntrada - (dir * 0.1f), Quaternion.identity);
-                
-                // Cria a Porta 2 na saída
-                GameObject portaSaida = Instantiate(prefabPortaIlusoria, pontoAtual + (dir * 0.1f), Quaternion.identity);
+                float anguloDirecao = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-                // Conecta as duas portas
+                Quaternion rotacaoEntrada = Quaternion.Euler(0, 0, anguloDirecao - 90f);
+
+                Quaternion rotacaoSaida = Quaternion.Euler(0, 0, anguloDirecao + 90f);
+
+
+                float distanciaSegura = 5.0f;
+
+                Vector2 posEntrada = pontoEntrada - (dir * distanciaSegura);
+                GameObject portaEntrada = Instantiate(prefabPortaIlusoria, posEntrada, rotacaoEntrada);
+
+                Vector2 posSaida = pontoAtual + (dir * distanciaSegura);
+                GameObject portaSaida = Instantiate(prefabPortaIlusoria, posSaida, rotacaoSaida);
+
                 PortaIlusoria scriptEntrada = portaEntrada.GetComponent<PortaIlusoria>();
                 PortaIlusoria scriptSaida = portaSaida.GetComponent<PortaIlusoria>();
 
                 scriptEntrada.destino = portaSaida.transform;
-                scriptSaida.destino = portaEntrada.transform; 
+                scriptSaida.destino = portaEntrada.transform;
             }
             else
             {
