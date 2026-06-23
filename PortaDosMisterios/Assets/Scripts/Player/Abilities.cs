@@ -1,8 +1,14 @@
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Abilities : MonoBehaviour
 {
+    [Header("Triggers das habilidades")]
+    public UnityEvent eFlash;
+    public UnityEvent eLoudSound;
+    public UnityEvent ePorta;
+
     [Header("Objetos das habilidades")]
     public GameObject objetoFlash;
     public GameObject objetoLoudSound;
@@ -90,6 +96,7 @@ public class Abilities : MonoBehaviour
         Vector3 direction = (Vector3) (player.lastDirection * distanciaDeSpawn);
         Vector3 posicaoSpawn = transform.position + direction;
         Instantiate(objetoFlash, posicaoSpawn, Quaternion.identity);
+        eFlash?.Invoke();
     }
 
     private void MakeLoudSound()
@@ -193,6 +200,8 @@ public class Abilities : MonoBehaviour
 
                 scriptEntrada.destino = portaSaida.transform;
                 scriptSaida.destino = portaEntrada.transform;
+
+                ePorta?.Invoke(); // faz som
             }
             else
             {

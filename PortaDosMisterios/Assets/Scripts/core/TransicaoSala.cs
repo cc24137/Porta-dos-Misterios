@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TransicaoSala : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class TransicaoSala : MonoBehaviour
 
     private CameraController cameraController;
 
+    public UnityEvent eventoSom;
+
     void Start()
     {
         cameraController = Camera.main.GetComponent<CameraController>();
@@ -18,6 +21,7 @@ public class TransicaoSala : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        eventoSom?.Invoke();
         if (collision.CompareTag("Player"))
         {
             if (pontoDeChegada != null)

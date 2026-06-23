@@ -5,6 +5,7 @@ public class InteragivelDialogo : MonoBehaviour, IInteragivel
     [Header("Conteúdo do diálogo")]
     [TextArea(3, 10)]
     public string[] paginas;
+    public bool[] saoPaginas;
 
     public void Interagir()
     {

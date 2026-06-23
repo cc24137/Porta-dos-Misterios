@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
+
+    public UnityEvent eventoSomPagina;
     private Inventario inventario;
     private movimentacao movimentacaoPlayer;
     private Abilities habilidades;
@@ -23,6 +26,7 @@ public class InputManager : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
             {
+                eventoSomPagina?.Invoke();
                 GerenciadorUI.Instancia.AvancarTexto();
             }
             return;
