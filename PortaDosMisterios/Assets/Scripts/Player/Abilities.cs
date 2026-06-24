@@ -118,8 +118,16 @@ public class Abilities : MonoBehaviour
     {
         Vector2 origin = transform.position;
         Vector2 dir = player.lastDirection.normalized;
+        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+        {
+            dir = (dir.x > 0) ? Vector2.right : Vector2.left;
+        }
+        else
+        {
+            dir = (dir.y > 0) ? Vector2.up : Vector2.down;
+        }
 
-        // encontra a primeira porta
+        // Encontra a primeira porta (agora garantido em linha reta)
         RaycastHit2D hitEntrada = Physics2D.Raycast(origin, dir, distanciaMaxBuscaParede, mascaraParedes);
 
         if (hitEntrada.collider != null)
@@ -183,11 +191,9 @@ public class Abilities : MonoBehaviour
                 float anguloDirecao = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
                 Quaternion rotacaoEntrada = Quaternion.Euler(0, 0, anguloDirecao - 90f);
-
                 Quaternion rotacaoSaida = Quaternion.Euler(0, 0, anguloDirecao + 90f);
 
-
-                float distanciaSegura = 5.0f;
+                float distanciaSegura = 15.0f; 
 
                 Vector2 posEntrada = pontoEntrada - (dir * distanciaSegura);
                 GameObject portaEntrada = Instantiate(prefabPortaIlusoria, posEntrada, rotacaoEntrada);

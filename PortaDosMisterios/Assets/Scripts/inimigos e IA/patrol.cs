@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class patrol : MonoBehaviour
 {
+    public enum DirecaoOlhar { Cima, Baixo, Esquerda, Direita }
+
     [Header("Configurações de Movimento")]
     public float velocidade = 2f;
     public GameObject[] objetosDaRota;
     public float tempoDeEspera = 1f;
+
+    [Header("Configuração de Sentinela (Estacionário)")]
+    [Tooltip("Direção que o inimigo ficará olhando caso não tenha pontos de patrulha")]
+    public DirecaoOlhar direcaoInicialOlhar = DirecaoOlhar.Baixo;
 
     [Header("Referências")]
     public Animator animator;
@@ -41,13 +47,21 @@ public class patrol : MonoBehaviour
 
     void Start()
     {
-        if (objetosDaRota.Length == 0) throw new System.Exception("Rota vazia");
-
         coneDeVisao = GetComponent<VisionCone>();
 
         if (particulaCabeca != null)
         {
             particulaCabeca.gameObject.SetActive(false);
+        }
+
+        // Aplica a direção do olhar inicial logo no primeiro frame
+        Vector2 dirInicial = GetVectorDaDirecao(direcaoInicialOlhar);
+        SettarDirecaoOlhar(dirInicial);
+
+        // SE NÃO HOUVER PONTOS DE PATRULHA, ele encerra o Start aqui e fica estacionado
+        if (objetosDaRota == null || objetosDaRota.Length == 0)
+        {
+            return;
         }
 
         rota.Add(transform.position);
@@ -86,6 +100,16 @@ public class patrol : MonoBehaviour
         }
 
         DesativarParticula();
+
+        // LÓGICA ESTACIONÁRIA: Se não tiver rota, mantém o olhar inicial e não se move
+        if (objetosDaRota == null || objetosDaRota.Length == 0)
+        {
+            Vector2 dirInicial = GetVectorDaDirecao(direcaoInicialOlhar);
+            SettarDirecaoOlhar(dirInicial);
+            return;
+        }
+
+        // --- A partir daqui é a patrulha normal se houver pontos ---
 
         if (estaEsperando)
         {
@@ -144,6 +168,32 @@ public class patrol : MonoBehaviour
         animator.SetFloat("Vertical", -1f);
         animator.SetFloat("LastHorizontal", 0f);
         animator.SetFloat("LastVertical", -1f);
+    }
+
+    private void SettarDirecaoOlhar(Vector2 dir)
+    {
+        animator.SetBool("Walking", false);
+        animator.SetFloat("Horizontal", dir.x);
+        animator.SetFloat("Vertical", dir.y);
+        animator.SetFloat("LastHorizontal", dir.x);
+        animator.SetFloat("LastVertical", dir.y);
+
+        if (coneDeVisao != null)
+        {
+            coneDeVisao.SetDirection(dir);
+        }
+    }
+
+    private Vector2 GetVectorDaDirecao(DirecaoOlhar dir)
+    {
+        switch (dir)
+        {
+            case DirecaoOlhar.Cima:     return Vector2.up;
+            case DirecaoOlhar.Baixo:    return Vector2.down;
+            case DirecaoOlhar.Esquerda: return Vector2.left;
+            case DirecaoOlhar.Direita:  return Vector2.right;
+            default:                    return Vector2.down;
+        }
     }
 
     private void AtivarParticula(Sprite novaImagem)
