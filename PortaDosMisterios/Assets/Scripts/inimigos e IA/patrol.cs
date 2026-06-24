@@ -1,6 +1,9 @@
 using System;
+using System.Collections; // Necessário para Coroutines
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Necessário para reiniciar a cena
+using UnityEngine.UI; // Necessário para manipular a tela preta
 
 public class patrol : MonoBehaviour
 {
@@ -14,6 +17,11 @@ public class patrol : MonoBehaviour
     [Header("Configuração de Sentinela (Estacionário)")]
     [Tooltip("Direção que o inimigo ficará olhando caso não tenha pontos de patrulha")]
     public DirecaoOlhar direcaoInicialOlhar = DirecaoOlhar.Baixo;
+
+    [Header("Configurações de Game Over")]
+    public Image telaPreta; // Arraste a imagem preta da UI aqui
+    public float tempoTelaPreta = 1f;
+    public float tempoEscurecendo = 1f;
 
     [Header("Referências")]
     public Animator animator;
@@ -33,16 +41,16 @@ public class patrol : MonoBehaviour
     private bool estaEsperando = false;
 
     public bool detectouPlayer = false;
+    private bool jaIniciouGameOver = false;
 
     private enum estado
     {
-        normal, // patrulha normal
-        buscando // depois de ouvir barulho, vai ate a fonte do barulho. Nao implementado ainda
+        normal,
+        buscando
     }
     private estado situacao = estado.normal;
     private bool wasBlind = false;
 
-    // Eventos
     public static event Action<int, int> OnMudouDeDirecao;
 
     void Start()
@@ -54,11 +62,9 @@ public class patrol : MonoBehaviour
             particulaCabeca.gameObject.SetActive(false);
         }
 
-        // Aplica a direção do olhar inicial logo no primeiro frame
         Vector2 dirInicial = GetVectorDaDirecao(direcaoInicialOlhar);
         SettarDirecaoOlhar(dirInicial);
 
-        // SE NÃO HOUVER PONTOS DE PATRULHA, ele encerra o Start aqui e fica estacionado
         if (objetosDaRota == null || objetosDaRota.Length == 0)
         {
             return;
@@ -74,8 +80,8 @@ public class patrol : MonoBehaviour
     }
 
     void Update()
-    {
-        // stun
+    {        if (jaIniciouGameOver) return;
+
         if (!coneDeVisao.isSeeing)
         {
             wasBlind = true;
@@ -84,32 +90,34 @@ public class patrol : MonoBehaviour
             return;
         }
 
-        // stun acabou
         if (wasBlind)
         {
             wasBlind = false;
-            DesativarParticula(); // Apaga as estrelinhas
-            EntraEmEstadoDeAlerta(); // Acorda mais rápido
+            DesativarParticula();
+            EntraEmEstadoDeAlerta();
         }
 
         if (detectouPlayer)
         {
             OlharParaBaixoParado();
-            AtivarParticula(imagemAtencao); // Liga a exclamação
-            return; // Fica parado olhando
+            AtivarParticula(imagemAtencao);
+
+            if (!jaIniciouGameOver)
+            {
+                jaIniciouGameOver = true;
+                StartCoroutine(RotinaAvistouPlayer());
+            }
+            return;
         }
 
         DesativarParticula();
 
-        // LÓGICA ESTACIONÁRIA: Se não tiver rota, mantém o olhar inicial e não se move
         if (objetosDaRota == null || objetosDaRota.Length == 0)
         {
             Vector2 dirInicial = GetVectorDaDirecao(direcaoInicialOlhar);
             SettarDirecaoOlhar(dirInicial);
             return;
         }
-
-        // --- A partir daqui é a patrulha normal se houver pontos ---
 
         if (estaEsperando)
         {
@@ -159,6 +167,32 @@ public class patrol : MonoBehaviour
         {
             coneDeVisao.SetDirection(direcaoMovimento);
         }
+    }
+
+    private IEnumerator RotinaAvistouPlayer()
+    {
+        yield return new WaitForSeconds(tempoTelaPreta);
+
+        if (telaPreta != null)
+        {
+            Color corDaTela = telaPreta.color;
+            float tempoPassado = 0f;
+
+            while (tempoPassado < tempoEscurecendo)
+            {
+                tempoPassado += Time.deltaTime;
+                corDaTela.a = Mathf.Clamp01(tempoPassado / tempoEscurecendo);
+                telaPreta.color = corDaTela;
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(tempoEscurecendo);
+        }
+
+        Scene cenaAtual = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(cenaAtual.name);
     }
 
     private void OlharParaBaixoParado()
