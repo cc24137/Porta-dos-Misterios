@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Events;
 
 //[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class VisionCone : MonoBehaviour
@@ -20,6 +21,8 @@ public class VisionCone : MonoBehaviour
     public Color coneEdgeColor = new Color(1f, 1f, 0f, 0.7f);
     public Material coneMaterial;
 
+    public UnityEvent eventoAchou;
+
     // -- Internal --
     private Mesh _coneMesh;
     [SerializeField] private MeshFilter _meshFilter;
@@ -27,6 +30,7 @@ public class VisionCone : MonoBehaviour
     private bool _playerDetected;
     public bool isSeeing {get; set;}
     private float timeBlinded = 0f;
+    private bool jaTocouSom = false;
 
     // olhar
     private Vector2 _direcaoOlhar = Vector2.down;
@@ -150,8 +154,11 @@ public class VisionCone : MonoBehaviour
 
     void OnPlayerDetected()
     {
-        // Hook: add alert logic here (e.g., state machine transition, event, sound)
-        //Debug.Log("Jogador detectado!");
+        if (!jaTocouSom)
+        {
+            eventoAchou?.Invoke();
+            jaTocouSom = true;
+        }
     }
 
     // ---------------------------------------------------------------
