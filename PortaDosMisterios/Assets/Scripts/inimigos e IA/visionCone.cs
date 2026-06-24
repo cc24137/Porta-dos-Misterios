@@ -71,10 +71,11 @@ public class VisionCone : MonoBehaviour
         if (isSeeing)
         {
             CastVision();
-            DrawConeMesh();
+            coneColor.a = 0.25f;
         }
         else
         {
+            coneColor.a = 0f;
             timeBlinded += Time.deltaTime;
             if (timeBlinded >= blindTime)
             {
@@ -82,6 +83,8 @@ public class VisionCone : MonoBehaviour
                 isSeeing = true;
             }
         }
+
+        DrawConeMesh();
 
         if (meuPatrulha != null)
         {
