@@ -12,6 +12,8 @@ public class GerenciadorUI : MonoBehaviour
     public TextMeshProUGUI componenteTexto;
     public GameObject paiDoTextoDeInteracao;
 
+    public Inventario inventario;
+
     private string[] paginasAtuais;
     private int indexPagina;
 
@@ -59,6 +61,7 @@ public class GerenciadorUI : MonoBehaviour
     {
         estaLendo = false;
         painelTexto.SetActive(false);
+        inventario.AlternarSelecao(-1);
     }
 
     public void MostrarTeclaDeInteragir()

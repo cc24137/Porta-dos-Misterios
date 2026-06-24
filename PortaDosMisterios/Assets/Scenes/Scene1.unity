@@ -10250,6 +10250,7 @@ MonoBehaviour:
   painelTexto: {fileID: 531716270}
   componenteTexto: {fileID: 1034083342}
   paiDoTextoDeInteracao: {fileID: 132013025}
+  inventario: {fileID: 1081769628}
 --- !u!4 &1658678671
 Transform:
   m_ObjectHideFlags: 0
