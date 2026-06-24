@@ -15,4 +15,14 @@ public class MenuPrincipal : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void Inicio()
+    {
+        SceneManager.LoadScene("MenuInicial");
+    }
+
+    public void AbrirGithub()
+    {
+        Application.OpenURL("https://github.com/cc24137/Porta-dos-Misterios");
+    }
 }

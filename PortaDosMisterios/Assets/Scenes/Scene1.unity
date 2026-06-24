@@ -998,7 +998,7 @@ MonoBehaviour:
         m_Calls: []
   telaPreta: {fileID: 1789218873}
   tempoParaEscurecer: 2
-  nomeCenaCreditosOMenu: MenuInicial
+  nomeCenaCreditosOMenu: FimCreditos
 --- !u!114 &97248998
 MonoBehaviour:
   m_ObjectHideFlags: 0
