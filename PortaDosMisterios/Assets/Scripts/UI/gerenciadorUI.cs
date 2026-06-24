@@ -10,6 +10,7 @@ public class GerenciadorUI : MonoBehaviour
     [Header("Configurações de Texto")]
     public GameObject painelTexto;
     public TextMeshProUGUI componenteTexto;
+    public GameObject paiDoTextoDeInteracao;
 
     private string[] paginasAtuais;
     private int indexPagina;
@@ -59,4 +60,15 @@ public class GerenciadorUI : MonoBehaviour
         estaLendo = false;
         painelTexto.SetActive(false);
     }
+
+    public void MostrarTeclaDeInteragir()
+    {
+        paiDoTextoDeInteracao.SetActive(true);
+    }
+
+    public void EsconderTeclaDeInteragir()
+    {
+        paiDoTextoDeInteracao.SetActive(false);
+    }
+    
 }

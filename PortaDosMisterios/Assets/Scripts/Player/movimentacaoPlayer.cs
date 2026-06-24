@@ -42,6 +42,7 @@ public class movimentacao : MonoBehaviour
         }
 
         AtualizarAnimacoes(direcao);
+        VerificarProximidadeDeInteragivel();
     }
 
     void FixedUpdate()
@@ -62,6 +63,22 @@ public class movimentacao : MonoBehaviour
         else
         {
             animator.SetBool("Walking", false);
+        }
+    }
+
+    public void VerificarProximidadeDeInteragivel()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, raioInteracao, camadaInteragivel);
+
+        if (hit != null)
+        {
+            IInteragivel objeto = hit.GetComponent<IInteragivel>();
+
+            GerenciadorUI.Instancia.MostrarTeclaDeInteragir();
+        }
+        else
+        {
+            GerenciadorUI.Instancia.EsconderTeclaDeInteragir();
         }
     }
 
