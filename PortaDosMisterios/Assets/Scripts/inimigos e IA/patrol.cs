@@ -48,10 +48,10 @@ public class patrol : MonoBehaviour
         normal,
         buscando
     }
-    private estado situacao = estado.normal;
+    //private estado situacao = estado.normal;
     private bool wasBlind = false;
 
-    public static event Action<int, int> OnMudouDeDirecao;
+    //public static event Action<int, int> OnMudouDeDirecao;
 
     void Start()
     {
@@ -74,7 +74,7 @@ public class patrol : MonoBehaviour
 
         foreach(GameObject obj in objetosDaRota)
         {
-            var posicao = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
+            var posicao = new Vector3(obj.transform.position.x, obj.transform.position.y, transform.position.z);
             rota.Add(posicao);
         }
     }
@@ -134,7 +134,7 @@ public class patrol : MonoBehaviour
             }
         }
 
-        if (Vector3.Distance(transform.position, rota[indRota]) < 0.1f)
+        if (Vector2.Distance(transform.position, rota[indRota]) <= 0.05f)
         {
             estaEsperando = true;
             cronometro = tempoDeEspera;
@@ -159,8 +159,9 @@ public class patrol : MonoBehaviour
             return;
         }
 
+        transform.position = Vector3.MoveTowards(transform.position, rota[indRota], velocidade * Time.deltaTime);
+
         Vector3 direcaoMovimento = (rota[indRota] - transform.position).normalized;
-        transform.Translate(direcaoMovimento * velocidade * Time.deltaTime);
         AtualizarAnimacoes(direcaoMovimento);
 
         if (coneDeVisao != null && direcaoMovimento != Vector3.zero)

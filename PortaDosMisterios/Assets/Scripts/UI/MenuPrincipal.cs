@@ -5,6 +5,7 @@ public class MenuPrincipal : MonoBehaviour
 {
     [Header("Configurações")]
     public string nomeDaCenaDoJogo = "Scene1";
+    public string nomeDaCenaInicio = "MenuInicial";
 
     public void Jogar()
     {
@@ -18,7 +19,8 @@ public class MenuPrincipal : MonoBehaviour
 
     public void Inicio()
     {
-        SceneManager.LoadScene("MenuInicial");
+        Debug.Log("Voltando para o menu inicial...");
+        SceneManager.LoadScene(nomeDaCenaInicio);
     }
 
     public void AbrirGithub()

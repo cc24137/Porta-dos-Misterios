@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) inventario.AlternarSelecao(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) inventario.AlternarSelecao(2);
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             if (inventario.slotSelecionado != -1)
             {
