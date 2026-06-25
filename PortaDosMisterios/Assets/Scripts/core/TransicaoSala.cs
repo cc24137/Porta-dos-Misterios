@@ -21,9 +21,9 @@ public class TransicaoSala : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        eventoSom?.Invoke();
         if (collision.CompareTag("Player"))
         {
+            eventoSom?.Invoke();
             if (pontoDeChegada != null)
             {
                 collision.transform.position = pontoDeChegada.position;
