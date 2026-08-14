@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+using UnityEngine.SceneManagement;
+
 public class InputManager : MonoBehaviour
 {
     public UnityEvent eventoSomPagina;
@@ -20,6 +22,12 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        // reset do jogo
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         // ==========================================
         // MODO DE LEITURA (UI / DIÁLOGO)
         // ==========================================
